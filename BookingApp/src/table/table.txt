@@ -1,0 +1,2 @@
+create database bookshop;
+create table users (firstname varchar(20),lastname varchar(20),email varchar(35) primary key,pass varchar(20),image varchar(20));
