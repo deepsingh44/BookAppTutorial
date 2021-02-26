@@ -24,5 +24,15 @@ public class UserService {
 		}
 		return msg;
 	}
+	
+	public User login(String email,String pass) {
+		User user=null;
+		try {
+			 return UserDao.getUserDao().login(email,pass);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return user;
+	}
 
 }

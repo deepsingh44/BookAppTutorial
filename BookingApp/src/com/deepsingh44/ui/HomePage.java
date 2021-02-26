@@ -6,6 +6,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import com.deepsingh44.model.User;
+
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -21,25 +24,12 @@ public class HomePage extends JFrame {
 	private JPanel contentPane;
 
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					HomePage frame = new HomePage();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
 	 * Create the frame.
 	 */
-	public HomePage() {
+	private User user;
+
+	public HomePage(User user) {
+		this.user = user;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 756, 472);
 		setLocationRelativeTo(null);
@@ -50,7 +40,7 @@ public class HomePage extends JFrame {
 		JMenu mnFile = new JMenu("File");
 		menuBar.add(mnFile);
 
-		JMenuItem mntmAddNewBook = new JMenuItem("Add New Book");
+		JMenuItem mntmAddNewBook = new JMenuItem("Add Book");
 
 		mntmAddNewBook.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.CTRL_MASK));
 		mnFile.add(mntmAddNewBook);
@@ -58,10 +48,20 @@ public class HomePage extends JFrame {
 		JMenu mnView = new JMenu("View");
 		menuBar.add(mnView);
 
+		JMenuItem mntmViewProfile = new JMenuItem("View Profile");
+
+		mnView.add(mntmViewProfile);
+
 		JMenuItem mntmBookList = new JMenuItem("Book List");
 
 		mntmBookList.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_L, InputEvent.CTRL_MASK));
 		mnView.add(mntmBookList);
+
+		JMenuItem mntmLogout = new JMenuItem("Logout");
+		mnView.add(mntmLogout);
+
+		JMenu menu = new JMenu("");
+		menuBar.add(menu);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -86,6 +86,13 @@ public class HomePage extends JFrame {
 			}
 		});
 
-	}
+		mntmViewProfile.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ProfilePage profilePage = new ProfilePage(user);
+				desktopPane.add(profilePage);
+				profilePage.setVisible(true);
+			}
+		});
 
+	}
 }

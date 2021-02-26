@@ -304,8 +304,14 @@ public class RegisterPage extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if (validLogin()) {
 					// login final code here
-					new HomePage().setVisible(true);
-					dispose();
+					User user=UserService.getUserService().login(logemail,logpass);
+					if(user!=null) {
+						new HomePage(user).setVisible(true);
+						dispose();
+					}else {
+						Util.errorMessage(RegisterPage.this, "Invalid User Email or Password");
+					}
+					
 				}
 			}
 		});
